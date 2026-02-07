@@ -1,0 +1,93 @@
+[
+  {
+    "name": "iPhone 15 Pro",
+    "price": 1499.99,
+    "description": "Latest Apple flagship smartphone with A17 chipset.",
+    "ratings": "4.8",
+    "images": [{ "image": "/images/products/1.jpg" }],
+    "category": "Mobile Phones",
+    "seller": "Apple Store",
+    "stock": 15,
+    "numOfReviews": 2,
+    "reviews": [],
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "name": "Lenovo Legion 5",
+    "price": 1299.5,
+    "description": "High-performance gaming laptop with RTX graphics.",
+    "ratings": "4.7",
+    "images": [{ "image": "/images/products/2.jpg" }],
+    "category": "Laptops",
+    "seller": "Lenovo",
+    "stock": 10,
+    "numOfReviews": 1,
+    "reviews": [],
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "name": "Nike Running Shoes",
+    "price": 89.99,
+    "description": "Lightweight sports shoes suitable for running.",
+    "ratings": "4.3",
+    "images": [{ "image": "/images/products/3.jpg" }],
+    "category": "Clothes/Shoes",
+    "seller": "Nike Store",
+    "stock": 20,
+    "numOfReviews": 0,
+    "reviews": [],
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "name": "Sony WH-1000XM5",
+    "price": 399.99,
+    "description": "Industry-leading noise-canceling headphones.",
+    "ratings": "4.9",
+    "images": [{ "image": "/images/products/4.jpg" }],
+    "category": "Headphones",
+    "seller": "Sony Center",
+    "stock": 8,
+    "numOfReviews": 2,
+    "reviews": [],
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "name": "The Psychology of Money",
+    "price": 15.99,
+    "description": "A book explaining money behavior and financial success.",
+    "ratings": "4.5",
+    "images": [{ "image": "/images/products/5.jpg" }],
+    "category": "Books",
+    "seller": "Amazon",
+    "stock": 50,
+    "numOfReviews": 1,
+    "reviews": [],
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "name": "Samsung Galaxy S24",
+    "price": 1299.99,
+    "description": "Latest Samsung flagship with Exynos chipset.",
+    "ratings": "4.6",
+    "images": [{ "image": "/images/products/6.jpg" }],
+    "category": "Mobile Phones",
+    "seller": "Samsung Store",
+    "stock": 12,
+    "numOfReviews": 3,
+    "reviews": [],
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  },
+  {
+    "name": "Adidas Sports Jacket",
+    "price": 79.99,
+    "description": "Comfortable and stylish jacket for all seasons.",
+    "ratings": "4.4",
+    "images": [{ "image": "/images/products/7.jpg" }],
+    "category": "Clothes/Shoes",
+    "seller": "Adidas Store",
+    "stock": 25,
+    "numOfReviews": 2,
+    "reviews": [],
+    "createdAt": "2025-01-01T00:00:00.000Z"
+  }
+]
