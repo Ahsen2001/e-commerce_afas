@@ -161,7 +161,7 @@ export default function Register() {
                     <button
                       type="button"
                       className="remove-file-btn"
-                      onClick={() => setAvatar(null)}
+                      onClick={() => setAvatar}
                     >
                       ×
                     </button>

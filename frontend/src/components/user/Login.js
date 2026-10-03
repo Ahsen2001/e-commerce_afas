@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import MetaData from "../layouts/MetaData";
-import { login } from "../../actions/authActions"; // ✅ correct
+import { login } from "../../actions/authActions";
 import { clearError } from "../../slices/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -9,29 +9,38 @@ import { toast } from "react-toastify";
 export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // ✅ get state from Redux
   const { loading, error, isAuthenticated } = useSelector(
     (state) => state.auth
   );
 
+  const redirect = location.search
+    ? `/${location.search.split("=")[1]}`
+    : "/";
+
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      navigate(redirect);
     }
 
     if (error) {
-      toast.error(error, { position: "bottom-center" });
+      toast.error(error, {
+        position: "bottom-center",
+      });
+
       dispatch(clearError());
     }
-  }, [dispatch, error, isAuthenticated, navigate]);
+  }, [dispatch, error, isAuthenticated, navigate, redirect]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+
     console.log("LOGIN CLICKED", email, password);
+
     dispatch(login(email, password));
   };
 
@@ -46,6 +55,7 @@ export default function Login() {
 
             <div className="form-group">
               <label htmlFor="email_field">Email</label>
+
               <input
                 type="email"
                 id="email_field"
@@ -58,6 +68,7 @@ export default function Login() {
 
             <div className="form-group">
               <label htmlFor="password_field">Password</label>
+
               <input
                 type="password"
                 id="password_field"
@@ -69,8 +80,13 @@ export default function Login() {
             </div>
 
             <div className="login-links">
-              <Link to="/password/forgot">Forgot Password?</Link>
-              <Link to="/register">New User?</Link>
+              <Link to="/password/forgot">
+                Forgot Password?
+              </Link>
+
+              <Link to="/register">
+                New User?
+              </Link>
             </div>
 
             <button
@@ -87,3 +103,4 @@ export default function Login() {
     </Fragment>
   );
 }
+

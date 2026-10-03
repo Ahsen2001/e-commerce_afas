@@ -34,6 +34,16 @@ exports.getProducts = catchAsyncError(async (req, res, next) => {
 exports.newProduct = catchAsyncError(async (req, res, next) => {
 
   req.body.user = req.user.id;
+
+  // multer (via upload.array("images", 5)) populates req.files with the
+  // saved-to-disk file info. Without this block, images never get linked
+  // to the product document even though the files land on disk fine.
+  if (req.files && req.files.length > 0) {
+    req.body.images = req.files.map((file) => ({
+      image: `product/${file.filename}`,
+    }));
+  }
+
   const product = await Product.create(req.body);
   res.status(201).json({
     success: true,
@@ -63,6 +73,16 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
     return next(new ErrorHandler("Product not found", 404));
   }
 
+  // Same fix as newProduct: attach any newly uploaded images.
+  // NOTE: this REPLACES existing images with whatever is uploaded this time.
+  // If you want to keep old images and only add new ones, merge with
+  // product.images instead of overwriting req.body.images.
+  if (req.files && req.files.length > 0) {
+    req.body.images = req.files.map((file) => ({
+      image: `product/${file.filename}`,
+    }));
+  }
+
   product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -71,6 +91,16 @@ exports.updateProduct = catchAsyncError(async (req, res, next) => {
   res.status(200).json({
     success: true,
     product,
+  });
+});
+
+// Get Admin Products -- /api/v1/admin/products
+exports.getAdminProducts = catchAsyncError(async (req, res, next) => {
+  const products = await Product.find();
+
+  res.status(200).json({
+    success: true,
+    products,
   });
 });
 
