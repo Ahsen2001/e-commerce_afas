@@ -38,7 +38,6 @@ export default function OrderDetail() {
   orderItems = [],
   totalPrice = 0,
   paymentInfo = {},
-  paidAt = null,
 } = orderDetail;
 
 

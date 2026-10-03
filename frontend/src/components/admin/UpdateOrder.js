@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { orderDetail as orderDetailAction, updateOrder } from "../../actions/orderActions";
 import { toast } from "react-toastify";
 import { clearOrderUpdated, clearError } from "../../slices/orderSlice";
@@ -24,7 +24,6 @@ export default function UpdateOrder() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { id: orderId } = useParams();
 
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const submitHandler = (e) => {
@@ -50,7 +49,7 @@ export default function UpdateOrder() {
       return;
     }
     dispatch(orderDetailAction(orderId));
-  }, [isOrderUpdated, error, dispatch]);
+  }, [isOrderUpdated, error, dispatch, orderId]);
 
   useEffect(() => {
     if (orderDetail._id) {

@@ -55,7 +55,7 @@ import VehicleAdminNew from "./components/vehicles/admin/VehicleAdminNew";
 import VehicleAdminEdit from "./components/vehicles/admin/VehicleAdminEdit";
 import VehicleBookingList from "./components/vehicles/admin/VehicleBookingList";
 
-// ✅ Separate component so useLocation works inside Router
+ 
 function AppLayout() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
@@ -167,7 +167,7 @@ function AppLayout() {
                 </ProtectedRoute>
               }
             />
-            // Inside admin Routes block:
+           
             <Route
               path="/admin/vehicles"
               element={
