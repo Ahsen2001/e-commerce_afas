@@ -11,51 +11,55 @@ Routes,
 import { HelmetProvider } from "react-helmet-async";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ProductDetail from "./components/product/ProductDetail";
-import ProductSearch from "./components/product/ProductSearch";
-import Login from "./components/user/Login";
-import Register from "./components/user/Register";
-import Experiences from "./components/experience/Experiences";
-import { useEffect, useState } from "react";
+
+import { lazy, Suspense, useEffect, useState } from "react";
 import store from "./store";
 import { loadUser } from "./actions/authActions";
-import Profile from "./components/user/Profile";
+
 import ProtectedRoute from "./components/route/ProtectedRoute";
-import UpdateProfile from "./components/user/UpdateProfile";
-import UpdatePassword from "./components/user/UpdatePassword";
-import ForgotPassword from "./components/user/ForgotPassword";
-import ResetPassword from "./components/user/ResetPassword";
-import Cart from "./components/cart/Cart";
-import Shipping from "./components/cart/Shipping";
-import ConfirmOrder from "./components/cart/confirmOrder";
-import Payment from "./components/cart/Payment";
+
 import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js/pure";
 import axios from "axios";
-import OrderSuccess from "./components/cart/OrderSuccess";
-import UserOrders from "./components/cart/UserOrders";
-import OrderDetail from "./components/order/orderDetail";
-import Dashboard from "./components/admin/Dashboard";
-import ProductList from "./components/admin/ProductList";
-import NewProduct from "./components/admin/NewProduct";
-import UpdateProduct from "./components/admin/UpdateProduct";
-import OrderList from "./components/admin/OrderList";
-import UpdateOrder from "./components/admin/UpdateOrder";
-import UserList from "./components/admin/UserList";
-import UpdateUser from "./components/admin/UpdateUser";
-import ReviewList from "./components/admin/ReviewList";
-import ItineraryList from "./components/itinerary/ItineraryList";
-import ItineraryDetail from "./components/itinerary/ItineraryDetail";
-import VehicleList from "./components/vehicles/VehicleList";
-import VehicleBooking from "./components/vehicles/VehicleBooking";
-import MyVehicleBookings from "./components/vehicles/MyVehicleBookings";
-import VehicleAdminDashboard from "./components/vehicles/VehicleAdminDashboard";
-import VehicleAdminList from "./components/vehicles/admin/VehicleAdminList";
-import VehicleAdminNew from "./components/vehicles/admin/VehicleAdminNew";
-import VehicleAdminEdit from "./components/vehicles/admin/VehicleAdminEdit";
-import VehicleBookingList from "./components/vehicles/admin/VehicleBookingList";
 
  
+const ProductDetail = lazy(() => import("./components/product/ProductDetail"));
+const ProductSearch = lazy(() => import("./components/product/ProductSearch"));
+const Login = lazy(() => import("./components/user/Login"));
+const Register = lazy(() => import("./components/user/Register"));
+const Experiences = lazy(() => import("./components/experience/Experiences"));
+const Profile = lazy(() => import("./components/user/Profile"));
+const UpdateProfile = lazy(() => import("./components/user/UpdateProfile"));
+const UpdatePassword = lazy(() => import("./components/user/UpdatePassword"));
+const ForgotPassword = lazy(() => import("./components/user/ForgotPassword"));
+const ResetPassword = lazy(() => import("./components/user/ResetPassword"));
+const Cart = lazy(() => import("./components/cart/Cart"));
+const Shipping = lazy(() => import("./components/cart/Shipping"));
+const ConfirmOrder = lazy(() => import("./components/cart/confirmOrder"));
+const Payment = lazy(() => import("./components/cart/Payment"));
+const OrderSuccess = lazy(() => import("./components/cart/OrderSuccess"));
+const UserOrders = lazy(() => import("./components/cart/UserOrders"));
+const OrderDetail = lazy(() => import("./components/order/orderDetail"));
+const Dashboard = lazy(() => import("./components/admin/Dashboard"));
+const ProductList = lazy(() => import("./components/admin/ProductList"));
+const NewProduct = lazy(() => import("./components/admin/NewProduct"));
+const UpdateProduct = lazy(() => import("./components/admin/UpdateProduct"));
+const OrderList = lazy(() => import("./components/admin/OrderList"));
+const UpdateOrder = lazy(() => import("./components/admin/UpdateOrder"));
+const UserList = lazy(() => import("./components/admin/UserList"));
+const UpdateUser = lazy(() => import("./components/admin/UpdateUser"));
+const ReviewList = lazy(() => import("./components/admin/ReviewList"));
+const ItineraryList = lazy(() => import("./components/itinerary/ItineraryList"));
+const ItineraryDetail = lazy(() => import("./components/itinerary/ItineraryDetail"));
+const VehicleList = lazy(() => import("./components/vehicles/VehicleList"));
+const VehicleBooking = lazy(() => import("./components/vehicles/VehicleBooking"));
+const MyVehicleBookings = lazy(() => import("./components/vehicles/MyVehicleBookings"));
+const VehicleAdminDashboard = lazy(() => import("./components/vehicles/VehicleAdminDashboard"));
+const VehicleAdminList = lazy(() => import("./components/vehicles/admin/VehicleAdminList"));
+const VehicleAdminNew = lazy(() => import("./components/vehicles/admin/VehicleAdminNew"));
+const VehicleAdminEdit = lazy(() => import("./components/vehicles/admin/VehicleAdminEdit"));
+const VehicleBookingList = lazy(() => import("./components/vehicles/admin/VehicleBookingList"));
+
 function AppLayout() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
@@ -63,6 +67,10 @@ function AppLayout() {
 
   useEffect(() => {
     store.dispatch(loadUser());
+  }, []);
+
+  useEffect(() => {
+    if (location.pathname !== "/payment" || stripePromise) return;
 
     async function getStripeApiKey() {
       try {
@@ -74,7 +82,7 @@ function AppLayout() {
     }
 
     getStripeApiKey();
-  }, []);
+  }, [location.pathname, stripePromise]);
 
   return (
           <div className="App">
@@ -85,6 +93,7 @@ function AppLayout() {
         {!isAdminRoute && <Header />}
 
         {/*  No container wrapper for admin — it manages its own layout */}
+        <Suspense fallback={<div role="status" style={{ padding: "2rem", textAlign: "center" }}>Loading page...</div>}>
         {isAdminRoute ? (
           <Routes>
             <Route
@@ -314,6 +323,7 @@ function AppLayout() {
           </div>
 )}
 
+        </Suspense>
         {!isAdminRoute && <Footer />}
         </HelmetProvider>
       </div>

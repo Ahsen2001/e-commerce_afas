@@ -115,7 +115,7 @@ export default function VehicleAdminEdit() {
       <MetaData title="Edit Vehicle — Admin" />
       <div style={{ display: "flex", minHeight: "100vh" }}>
 
-        <div style={{ width: sidebarOpen ? "220px" : "64px", flexShrink: 0, transition: "width 0.25s ease", overflow: "hidden" }}>
+        <div style={{ width: sidebarOpen ? "var(--admin-sidebar-width)" : "var(--admin-sidebar-collapsed-width)", flexShrink: 0, transition: "width 0.25s ease", overflow: "hidden" }}>
           <Sidebar collapsed={!sidebarOpen} />
         </div>
 

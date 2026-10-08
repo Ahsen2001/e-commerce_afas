@@ -22,7 +22,7 @@ export default function ProductList() {
   const dispatch = useDispatch();
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const sidebarWidth = sidebarOpen ? "250px" : "72px";
+  const sidebarWidth = sidebarOpen ? "var(--admin-sidebar-width)" : "var(--admin-sidebar-collapsed-width)";
 
   const deleteHandler = (e, id) => {
     e.currentTarget.disabled = true;

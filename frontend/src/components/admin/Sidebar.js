@@ -8,7 +8,7 @@ export default function Sidebar({ collapsed = false }) {
     location.pathname.includes("/admin/product"),
   );
 
-  const sidebarWidth = collapsed ? "72px" : "250px";
+  const sidebarWidth = collapsed ? "var(--admin-sidebar-collapsed-width)" : "var(--admin-sidebar-width)";
 
   const isActive = (path) => location.pathname === path;
 

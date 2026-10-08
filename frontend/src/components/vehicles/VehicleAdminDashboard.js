@@ -89,7 +89,7 @@ export default function VehicleAdminDashboard() {
 
         {/* Sidebar */}
         <div style={{
-          width: sidebarOpen ? "220px" : "64px",
+          width: sidebarOpen ? "var(--admin-sidebar-width)" : "var(--admin-sidebar-collapsed-width)",
           flexShrink: 0, transition: "width 0.25s ease", overflow: "hidden",
         }}>
           <Sidebar collapsed={!sidebarOpen} />

@@ -35,10 +35,6 @@ export default function Product({ product, col }) {
 
   const rating = Number(product.ratings ?? 0);
 
-  console.log("Product:", product.name);
-  console.log("product.images:", product.images);
-  console.log("raw image:", product.images?.[0]?.image);
-  console.log("resolved image:", imageUrl);
 
   return (
     <div className={`col-sm-6 col-lg-${col} mb-4`}>
@@ -75,6 +71,8 @@ export default function Product({ product, col }) {
           }}
         >
           <img
+            loading="lazy"
+            decoding="async"
             src={imageUrl}
             alt={product.name || "Product image"}
             style={{
